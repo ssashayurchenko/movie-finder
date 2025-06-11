@@ -12,7 +12,8 @@
       "features/*": ["features/*"],
       "types/*": ["types/*"],
       "components/*": ["components/*"],
-      "app/*": ["app/*"]
+      "app/*": ["app/*"],
+      "containers/*": ["containers/*"]
     }
   },
   "include": ["src"]

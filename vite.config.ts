@@ -10,6 +10,7 @@ export default defineConfig({
       types: path.resolve(__dirname, "src/types"),
       features: path.resolve(__dirname, "src/features"),
       app: path.resolve(__dirname, "src/app"),
+      containers: path.resolve(__dirname, "src/containers"),
     },
   },
   server: {

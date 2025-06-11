@@ -1,9 +1,9 @@
-import FilmCard from "components/films/FilmCard";
+import FilmsList from "containers/films/FilmsList";
 import AddFilmBtn from "components/addFilm/AddFilmBtn";
 export default function App() {
   return (
     <>
-      <FilmCard />
+      <FilmsList />
       <AddFilmBtn />
     </>
   );
