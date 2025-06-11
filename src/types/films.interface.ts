@@ -5,3 +5,12 @@ export interface Film {
   format: "VHS" | "DVD" | "Blu-ray";
   stars: string[];
 }
+
+export interface FilmsState {
+  films: Film[];
+}
+
+export interface AddFilmModalProps {
+  open: boolean;
+  onClose: () => void;
+}

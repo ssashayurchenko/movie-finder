@@ -1,4 +1,5 @@
 import { Film } from "types/films.interface";
+import { Box, Typography, Paper, Stack } from "@mui/material";
 
 export default function FilmCard() {
   const mockedData: Film[] = [
@@ -44,19 +45,30 @@ export default function FilmCard() {
   ];
 
   return (
-    <div>
+    <Stack spacing={2} sx={{ p: 2 }}>
       {mockedData.map((film) => (
-        <div>
-          <h2>{film.title}</h2>
-          <p>{film.format}</p>
-          <p>{film.releaseYear}</p>
-          <ul>
-            {film.stars.map((actor, index) => (
-              <li key={index}>{actor}</li>
-            ))}
-          </ul>
-        </div>
+        <Paper key={film.id} elevation={3} sx={{ p: 2 }}>
+          <Typography variant="h6" component="h2">
+            {film.title}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Format: {film.format}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Year: {film.releaseYear}
+          </Typography>
+          <Box mt={1}>
+            <Typography variant="subtitle2">Stars:</Typography>
+            <ul style={{ margin: 0, paddingLeft: 20 }}>
+              {film.stars.map((actor, index) => (
+                <li key={index}>
+                  <Typography variant="body2">{actor}</Typography>
+                </li>
+              ))}
+            </ul>
+          </Box>
+        </Paper>
       ))}
-    </div>
+    </Stack>
   );
 }
