@@ -53,8 +53,11 @@ export const filmsSlice = createSlice({
     addFilm: (state, action: PayloadAction<Film>) => {
       state.films.push(action.payload);
     },
+    deleteFilm: (state, action: PayloadAction<number>) =>{
+      state.films = state.films.filter(film => film.id !== action.payload)
+    }
   },
 });
 
-export const { addFilm } = filmsSlice.actions;
+export const { addFilm, deleteFilm } = filmsSlice.actions;
 export default filmsSlice.reducer;
