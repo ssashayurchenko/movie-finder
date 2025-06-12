@@ -1,28 +1,37 @@
-import { Box, Autocomplete, TextField } from "@mui/material";
-import { useState } from "react";
+import { TextField, CircularProgress, InputAdornment } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useEffect, useState } from "react";
 
-export default function SearchInput() {
+type Props = {
+  onSearch: (value: string) => void;
+};
+
+export default function SearchInput({ onSearch }: Props) {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (
-    e: React.SyntheticEvent,
-    newInputValue: string
-  ) => {
-    setInput(newInputValue);
-  };
+  useEffect(() => {
+    setLoading(true);
+    const timer = setTimeout(() => {
+      onSearch(input);
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [input, onSearch]);
+
   return (
-    <Box>
-      <Autocomplete
-        freeSolo
-        options={[]}
-        inputValue={input}
-        onInputChange={handleInputChange}
-        loading={loading}
-        renderInput={(params) => (
-          <TextField {...params} label="Search films..." />
-        )}
-      />
-    </Box>
+    <TextField
+      label="Search films..."
+      fullWidth
+      value={input}
+      onChange={(e) => setInput(e.target.value)}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            {loading ? <CircularProgress size={20} /> : <SearchIcon />}
+          </InputAdornment>
+        ),
+      }}
+    />
   );
 }
