@@ -19,6 +19,10 @@ export default function FilmsList() {
       )
   );
   const hasResults = searchQuery ? filteredResults.length > 0 : true;
+
+  const sortedResults = [...filteredResults].sort((a, b) =>
+    a.title.localeCompare(b.title)
+  );
   return (
     <>
       <Box sx={styles.topBar}>
@@ -28,7 +32,7 @@ export default function FilmsList() {
 
       {hasResults ? (
         <Box sx={styles.cardsContainer}>
-          {filteredResults.map((film) => (
+          {sortedResults.map((film) => (
             <Box key={film.id} sx={styles.cardItem}>
               <FilmCard film={film} />
             </Box>
