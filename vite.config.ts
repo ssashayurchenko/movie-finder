@@ -11,6 +11,7 @@ export default defineConfig({
       features: path.resolve(__dirname, "src/features"),
       app: path.resolve(__dirname, "src/app"),
       containers: path.resolve(__dirname, "src/containers"),
+      theme: path.resolve(__dirname, "src/theme")
     },
   },
   server: {

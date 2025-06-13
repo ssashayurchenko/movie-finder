@@ -1,9 +1,11 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import FilmCard from "components/filmCard/FilmCard";
 import { useSelector } from "react-redux";
 import { RootState } from "app/store";
 import SearchInput from "components/search-input/SearchInput";
 import { useState } from "react";
+import { styles } from "./Films.List.styles";
+import AddFilmBtn from "components/addFilm/AddFilmBtn";
 
 export default function FilmsList() {
   const films = useSelector((state: RootState) => state.films.films);
@@ -19,18 +21,26 @@ export default function FilmsList() {
   const hasResults = searchQuery ? filteredResults.length > 0 : true;
   return (
     <>
-      <SearchInput onSearch={setSearchQuery} />
-      <Stack spacing={2} sx={{ p: 2 }}>
-        {hasResults ? (
-          (searchQuery ? filteredResults : films).map((film) => (
-            <FilmCard key={film.id} film={film} />
-          ))
-        ) : (
+      <Box sx={styles.topBar}>
+        <SearchInput onSearch={setSearchQuery} />
+        <AddFilmBtn />
+      </Box>
+
+      {hasResults ? (
+        <Box sx={styles.cardsContainer}>
+          {filteredResults.map((film) => (
+            <Box key={film.id} sx={styles.cardItem}>
+              <FilmCard film={film} />
+            </Box>
+          ))}
+        </Box>
+      ) : (
+        <Box sx={styles.noResultsText}>
           <Typography variant="h6" color="text.secondary" align="center">
             There are no movies for the following query "{searchQuery}"
           </Typography>
-        )}
-      </Stack>
+        </Box>
+      )}
     </>
   );
 }

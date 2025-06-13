@@ -1,5 +1,11 @@
-import { TextField, CircularProgress, InputAdornment } from "@mui/material";
+import {
+  TextField,
+  CircularProgress,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 
 type Props = {
@@ -19,16 +25,26 @@ export default function SearchInput({ onSearch }: Props) {
     return () => clearTimeout(timer);
   }, [input, onSearch]);
 
+  const handleClose = () => {
+    setInput("");
+    onSearch("");
+  };
+
   return (
     <TextField
-      label="Search films..."
-      fullWidth
+      label="Search.."
       value={input}
       onChange={(e) => setInput(e.target.value)}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            {loading ? <CircularProgress size={20} /> : <SearchIcon />}
+            {!input && <SearchIcon />}
+            {input && !loading && (
+              <IconButton onClick={handleClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            )}
+            {loading && input && <CircularProgress size={20} />}
           </InputAdornment>
         ),
       }}

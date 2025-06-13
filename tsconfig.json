@@ -13,7 +13,8 @@
       "types/*": ["types/*"],
       "components/*": ["components/*"],
       "app/*": ["app/*"],
-      "containers/*": ["containers/*"]
+      "containers/*": ["containers/*"],
+      "theme/*": ["theme/*"]
     }
   },
   "include": ["src"]

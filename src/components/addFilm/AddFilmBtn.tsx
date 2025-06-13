@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { AddFilmModal } from "components/AddFilmModal/AddFilmModal";
+import { AddFilmModal } from "components/addFilmModal/AddFilmModal";
 import { useState } from "react";
 
 export default function AddFilmBtn() {
@@ -9,7 +9,12 @@ export default function AddFilmBtn() {
 
   return (
     <>
-      <Button onClick={handleOpen} variant="contained">
+      <Button
+        onClick={handleOpen}
+        aria-label="add film"
+        variant="contained"
+        sx={{ width: "100%", maxWidth: "250px" }}
+      >
         Add film
       </Button>
       <AddFilmModal open={isModalOpen} onClose={handleClose} />
