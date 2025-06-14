@@ -4,6 +4,7 @@ import { useAppDispatch } from "app/hooks";
 import { fetchFilmById, clearSelectedFilm } from "features/films/filmsSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "app/store";
+import { styles } from "./FilmModal.styles";
 
 type FilmModalProps = {
   filmId: number;
@@ -27,19 +28,7 @@ export default function FilmModal({ filmId, open, close }: FilmModalProps) {
 
   return (
     <Modal open={open} onClose={close}>
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 400,
-          bgcolor: "background.paper",
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 2,
-        }}
-      >
+      <Box sx={styles}>
         {film ? (
           <>
             <Typography variant="h6">{film.title}</Typography>
