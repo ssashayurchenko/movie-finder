@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { AddFilmModal } from "components/addFilmModal/AddFilmModal";
+import { AddFilmModal } from "components/add-film-modal/AddFilmModal";
 import { useState } from "react";
 
 export default function AddFilmBtn() {

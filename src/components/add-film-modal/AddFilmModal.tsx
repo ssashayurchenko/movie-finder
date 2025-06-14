@@ -18,12 +18,15 @@ import { AddFilmModalProps } from "types/films.interface";
 import { style } from "./AddFilmModal.styles";
 import { Film } from "types/films.interface";
 import { useDispatch } from "react-redux";
-import { addFilm } from "features/films/filmsSlice";
+import { AppDispatch } from "app/store";
+import { createFilmAndReload } from "features/films/filmsSlice";
 
 type FilmFormat = "VHS" | "DVD" | "Blu-ray";
 
-export const AddFilmModal: FC<AddFilmModalProps> = ({ open, onClose }) => {
-  const dispatch = useDispatch();
+export const AddFilmModal: FC<
+  AddFilmModalProps & { onFilmAdded?: () => void }
+> = ({ open, onClose, onFilmAdded }) => {
+  const dispatch = useDispatch<AppDispatch>();
 
   const [format, setFormat] = useState<FilmFormat>("VHS");
   const [title, setTitle] = useState("");
@@ -47,7 +50,7 @@ export const AddFilmModal: FC<AddFilmModalProps> = ({ open, onClose }) => {
   };
 
   const validateYear = (value: string): string => {
-    if (!value.trim()) return "year is required";
+    if (!value.trim()) return "Year is required";
     if (!yearValidate.test(value)) return "Year must be a 4-digit number";
     return "";
   };
@@ -87,23 +90,30 @@ export const AddFilmModal: FC<AddFilmModalProps> = ({ open, onClose }) => {
     setErrors((prev) => ({ ...prev, stars: validateStars(value) }));
   };
 
-  const handleAddFilmBtn = () => {
+  const handleAddFilmBtn = async () => {
     if (!validateFields()) return;
 
-    const newFilm: Film = {
-      id: Date.now(),
+    const newFilm: Omit<Film, "id"> = {
       title,
-      releaseYear: Number(year),
+      year: Number(year),
       format,
-      stars: stars.split(",").map((star) => star.trim()),
+      actors: stars.split(",").map((star) => star.trim()),
     };
-    dispatch(addFilm(newFilm));
-    setTitle("");
-    setYear("");
-    setFormat("VHS");
-    setStars("");
-    setErrors({ title: "", year: "", stars: "" });
-    onClose();
+
+    try {
+      await dispatch(createFilmAndReload(newFilm)).unwrap();
+
+      setTitle("");
+      setYear("");
+      setFormat("VHS");
+      setStars("");
+      setErrors({ title: "", year: "", stars: "" });
+
+      onClose();
+      onFilmAdded?.();
+    } catch (error) {
+      console.error("Failed to add film and reload:", error);
+    }
   };
 
   return (
@@ -115,8 +125,7 @@ export const AddFilmModal: FC<AddFilmModalProps> = ({ open, onClose }) => {
           aria-label="close"
           size="small"
         >
-          {" "}
-          <CloseIcon></CloseIcon>
+          <CloseIcon />
         </IconButton>
         <Stack spacing={2} mt={1}>
           <TextField

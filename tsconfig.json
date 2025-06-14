@@ -17,5 +17,5 @@
       "theme/*": ["theme/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "env.js",  "vite-env.d.ts"]
 }

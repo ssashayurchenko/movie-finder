@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import { deleteFilm } from "features/films/filmsSlice";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "app/hooks";
 import { styles } from "./FilmCard.styles";
 
 type FilmCardProps = {
@@ -12,7 +12,7 @@ type FilmCardProps = {
 };
 
 export default function FilmCard({ film }: FilmCardProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleDeleteFilmBtn = () => {
     dispatch(deleteFilm(film.id));
   };
@@ -25,12 +25,13 @@ export default function FilmCard({ film }: FilmCardProps) {
         Format: {film.format}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        Year: {film.releaseYear}
+        Year: {film.year}
       </Typography>
+
       <Box mt={1}>
         <Typography variant="subtitle2">Stars:</Typography>
         <List>
-          {film.stars.map((actor, index) => (
+          {film.actors?.map((actor, index) => (
             <ListItem key={index}>
               <Typography variant="body2">{actor}</Typography>
             </ListItem>
