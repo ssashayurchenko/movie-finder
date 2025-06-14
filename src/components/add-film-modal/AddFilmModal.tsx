@@ -25,7 +25,7 @@ type FilmFormat = "VHS" | "DVD" | "Blu-ray";
 
 export const AddFilmModal: FC<
   AddFilmModalProps & { onFilmAdded?: () => void }
-> = ({ open, onClose, onFilmAdded }) => {
+> = ({ open, onClose, onFilmAdded, existingFilms }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [format, setFormat] = useState<FilmFormat>("VHS");
@@ -46,12 +46,19 @@ export const AddFilmModal: FC<
   const validateTitle = (value: string): string => {
     if (!value.trim()) return "Title is required";
     if (!titleValidate.test(value)) return "Title contains invalid characters";
+    const isDuplicate = existingFilms.some(
+      (film) => film.title.toLowerCase() === value.trim().toLowerCase()
+    );
+    if (isDuplicate) return "Title must be unique";
+
     return "";
   };
 
   const validateYear = (value: string): string => {
+    const year = Number(value);
     if (!value.trim()) return "Year is required";
     if (!yearValidate.test(value)) return "Year must be a 4-digit number";
+    if (year < 1900 || year > 2021) return "Year must be between 1900 and 2021";
     return "";
   };
 

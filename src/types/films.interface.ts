@@ -25,6 +25,8 @@ export interface FilmInfo {
 export interface AddFilmModalProps {
   open: boolean;
   onClose: () => void;
+  onFilmAdded?: () => void;
+  existingFilms: Film[];
 }
 
 export interface FetchFilmsParams {

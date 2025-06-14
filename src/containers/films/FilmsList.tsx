@@ -30,6 +30,7 @@ export default function FilmsList() {
       <Box sx={styles.topBar}>
         <SearchInput onSearch={setSearchQuery} />
         <AddFilmBtn
+          existingFilms={films}
           onFilmAdded={() => {
             dispatch(
               fetchFilms({
@@ -44,7 +45,13 @@ export default function FilmsList() {
         />
       </Box>
 
-      {films.length > 0 ? (
+      {searchQuery.length === 1 ? (
+        <Box sx={styles.noResultsText}>
+          <Typography variant="h6" color="text.secondary" align="center">
+            Your search query is too short
+          </Typography>
+        </Box>
+      ) : films.length > 0 ? (
         <Box sx={styles.cardsContainer}>
           {films.map((film) => (
             <Box key={film.id} sx={styles.cardItem}>
@@ -52,10 +59,16 @@ export default function FilmsList() {
             </Box>
           ))}
         </Box>
-      ) : (
+      ) : searchQuery.length > 1 ? (
         <Box sx={styles.noResultsText}>
           <Typography variant="h6" color="text.secondary" align="center">
             There are no movies for the following query "{searchQuery}"
+          </Typography>
+        </Box>
+      ) : (
+        <Box sx={styles.noResultsText}>
+          <Typography variant="h6" color="text.secondary" align="center">
+            No movies found.
           </Typography>
         </Box>
       )}

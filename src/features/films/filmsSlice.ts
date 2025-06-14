@@ -103,7 +103,7 @@ export const filmsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchFilms.fulfilled, (state, action) => {
-        state.films = action.payload;
+        state.films = action.payload ?? [];
       })
       .addCase(deleteFilm.fulfilled, (state, action) => {
         state.films = state.films.filter((film) => film.id !== action.payload);
