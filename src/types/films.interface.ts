@@ -8,7 +8,18 @@ export interface Film {
 
 export interface FilmsState {
   films: Film[];
-  selectedFilm: Film | null;
+  selectedFilm: FilmInfo | null;
+}
+
+export interface Actor {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}
+export interface FilmInfo {
+  title: string;
+  actors: Actor[];
 }
 
 export interface AddFilmModalProps {

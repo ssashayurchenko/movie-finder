@@ -5,9 +5,12 @@ export const styles = {
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    backgroundColor: '#bcaaa4'
+    backgroundColor: "#bcaaa4",
+    mb: "10px",
   },
-  deleteBtn: {
-    mt: 'auto'
-  }
+  buttonBox: {
+    display: "flex",
+    gap: "5px",
+    mt: "auto",
+  },
 };

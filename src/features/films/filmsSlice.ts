@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Film, FilmsState, FetchFilmsParams } from "types/films.interface";
+import {
+  Film,
+  FilmsState,
+  FetchFilmsParams,
+  FilmInfo,
+} from "types/films.interface";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
@@ -68,9 +73,9 @@ export const deleteFilm = createAsyncThunk<number, number>(
   }
 );
 
-export const fetchFilmById = createAsyncThunk<Film, number>(
+export const fetchFilmById = createAsyncThunk<FilmInfo, number>(
   "movies/fetchFilmById",
-  async (filmId) => {
+  async (filmId: number) => {
     const response = await fetch(`${apiUrl}/movies/${filmId}`, {
       headers,
     });

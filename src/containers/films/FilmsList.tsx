@@ -29,7 +29,19 @@ export default function FilmsList() {
     <>
       <Box sx={styles.topBar}>
         <SearchInput onSearch={setSearchQuery} />
-        <AddFilmBtn />
+        <AddFilmBtn
+          onFilmAdded={() => {
+            dispatch(
+              fetchFilms({
+                search: searchQuery,
+                sort: "title",
+                order: "ASC",
+                limit: 50,
+                offset: 0,
+              })
+            );
+          }}
+        />
       </Box>
 
       {films.length > 0 ? (
