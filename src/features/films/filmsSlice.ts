@@ -6,8 +6,8 @@ import {
   FilmInfo,
 } from "types/films.interface";
 
-const apiUrl = import.meta.env.VITE_API_URL;
-const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
+const apiUrl = window._env_?.VITE_API_URL ?? "";
+const ACCESS_TOKEN = window._env_?.VITE_ACCESS_TOKEN ?? "";
 const headers = {
   Authorization: ACCESS_TOKEN,
 };
